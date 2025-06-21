@@ -1,0 +1,1868 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&display=swap');
+
+
+/*
+ * style.css
+ *
+ * Este arquivo CSS é o principal para o estilo do seu site.
+ * Ele foi organizado em seções lógicas para facilitar a leitura e manutenção.
+ *
+ * Sumário das Seções:
+ * 1. Reset Global e Variáveis CSS
+ * 2. Estilos Base (HTML, Body, Foco Universal)
+ * 3. Link "Pular para o Conteúdo Principal"
+ * 4. Header e Navbar
+ * 5. Seção Hero
+ * 6. Botões de Chamada para Ação (CTA)
+ * 7. Seções de Conteúdo Geral
+ * 8. Grid de Cards (Seção Importância)
+ * 9. Carrossel
+ * 10. Seção Impacto e Futuro (Gráfico)
+ * 11. Grid de Desafios
+ * 12. Galeria de Imagens
+ * 13. Estilos de Formulários (Geral, Quiz e Contato)
+ * 14. Rodapé
+ * 15. Botões Fixos (Voltar ao Topo e Acessibilidade)
+ * 16. Botão "Leia Mais"
+ * 17. Botão "Copiar E-mail"
+ * 18. Mensagens de Erro Inline
+ * 19. Spinner de Carregamento
+ * 20. Modal Customizado
+ * 21. Temas (Escuro e Alto Contraste)
+ * 22. Estilos de Responsividade (Media Queries)
+ * 23. Animações de Revelação
+ *
+ */
+
+/* --- 1. Reset Global e Variáveis CSS --- */
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Cores principais - Campo */
+    --cor-campo-primaria: #2c7a2c; /* Verde escuro */
+    --cor-campo-secundaria: #1f4f1f; /* Verde mais escuro */
+    --cor-campo-claro: #a7d5a7; /* Verde claro */
+    --cor-campo-muito-claro: #e6f1e6; /* Verde muito claro */
+
+    /* Cores da Cidade / Conexão */
+    --cor-cidade-azul: #4682b4; /* Azul aço - para elementos urbanos/conexão */
+    --cor-cidade-amarelo: #FFD700; /* Ouro - para energia, sol, celebração */
+    --cor-cidade-laranja: #FFA500; /* Laranja - para vitalidade, colheita */
+    --cor-cidade-roxo: #8A2BE2; /* Azul violeta - para inovação/tecnologia */
+
+    /* Cores neutras e texto */
+    --cor-fundo-claro: #f4f9f4; /* Fundo geral claro */
+    --cor-texto-principal: #222; /* Texto escuro padrão */
+    --cor-texto-secundario: #333; /* Texto cinza */
+    --cor-texto-campo-escuro: #264d26; /* Texto verde escuro */
+
+    /* Gradientes */
+    --gradiente-hero-claro: linear-gradient(to right, #b8d9b8, #d7f0d7); /* Verde claro */
+    --gradiente-fundo-claro: linear-gradient(180deg, #e6f1e6 0%, #ddeff7 100%); /* Campo para Céu */
+    --gradiente-btn-cta: linear-gradient(45deg, var(--cor-cidade-laranja), var(--cor-cidade-amarelo)); /* Gradiente para CTA */
+    --gradiente-card-borda: linear-gradient(45deg, var(--cor-campo-primaria), var(--cor-cidade-azul)); /* Borda de card */
+
+    /* Sombras */
+    --sombra-padrao: 0 4px 10px rgba(0,0,0,0.1);
+    --sombra-header: 0 2px 5px rgba(0,0,0,0.2);
+    --sombra-hero: 0 8px 20px rgba(44, 122, 44, 0.2); /* Sombra mais suave */
+    --sombra-imagem-hero: 0 8px 20px rgba(44, 122, 44, 0.4);
+    --sombra-carousel: 0 6px 15px rgba(0,0,0,0.18);
+    --sombra-botoes-fixos: 0 6px 12px rgba(44, 122, 44, 0.6); /* Sombra mais pronunciada */
+    --sombra-menu-acessibilidade: 0 6px 15px rgba(44, 122, 44, 0.35);
+    --sombra-card: 0 5px 15px rgba(0,0,0,0.08); /* Sombra para cards */
+    --sombra-card-hover: 0 10px 25px rgba(0,0,0,0.2); /* Sombra ao passar o mouse */
+    --sombra-galeria: 0 4px 12px rgba(0,0,0,0.15); /* Sombra para itens de galeria */
+
+    /* Fontes */
+    --fonte-principal: 'Inter', sans-serif;
+    --fonte-titulos: 'Playfair Display', serif;
+}
+
+/* Importação de fontes do Google Fonts */
+
+/* --- 2. Estilos Base (HTML, Body, Foco Universal) --- */
+html {
+    font-family: var(--fonte-principal);
+    font-size: 16px; /* Tamanho base da fonte do HTML */
+    background: var(--gradiente-fundo-claro); /* Novo gradiente de fundo */
+    color: var(--cor-texto-principal);
+    scroll-behavior: smooth;
+}
+
+body {
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    /* Fundo animado sutil para o body */
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
+}
+
+/* Animação de fundo para o body */
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Estilos de foco universais para acessibilidade */
+*:focus {
+    outline: 3px solid var(--cor-cidade-azul); /* Borda azul vibrante */
+    outline-offset: 2px; /* Espaçamento da borda */
+    border-radius: 4px; /* Bordas arredondadas para o foco */
+}
+/* Remover outline em cliques de mouse para não atrapalhar a estética, mas manter para teclado */
+*:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* --- 3. Link "Pular para o Conteúdo Principal" --- */
+.skip-link {
+    position: absolute;
+    top: -40px; /* Escondido por padrão */
+    left: 0;
+    background: var(--cor-campo-primaria);
+    color: white;
+    padding: 8px 15px;
+    z-index: 9999;
+    transition: top 0.3s ease;
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom-right-radius: 8px;
+}
+
+.skip-link:focus {
+    top: 0; /* Visível ao focar */
+    outline: none; /* Já temos um outline global */
+}
+
+/* --- 4. Header e Navbar --- */
+header {
+    background-color: var(--cor-campo-primaria);
+    color: #fff;
+    padding: 0.8rem 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--sombra-header);
+}
+
+.navbar {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap; /* Permite que os itens quebrem para a próxima linha */
+    gap: 1rem; /* Espaçamento entre itens quebrados */
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: default;
+    /* Animação sutil no ícone do logo */
+    animation: pulse 2s infinite ease-in-out;
+    white-space: nowrap; /* Evita que o texto do logo quebre inicialmente */
+}
+
+/* Animação para o logo */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.menu-toggle {
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: #fff;
+    cursor: pointer;
+    display: none;
+    transition: transform 0.3s ease;
+}
+
+.menu-toggle:hover {
+    transform: rotate(90deg);
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.25rem;
+}
+
+.nav-links a {
+    color: var(--cor-campo-muito-claro);
+    text-decoration: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: color 0.3s ease, transform 0.2s ease; /* Transição para cor e transform */
+}
+
+.nav-links a:hover,
+.nav-links a:focus {
+    color: var(--cor-campo-claro);
+    transform: translateY(-2px); /* Efeito sutil ao passar o mouse */
+    outline: none;
+}
+
+/* Estilo para o link de navegação ativo (adicionado via JS) */
+.nav-links a.active {
+    color: var(--cor-cidade-amarelo); /* Cor de destaque */
+    border-bottom: 2px solid var(--cor-cidade-amarelo); /* Linha abaixo do link */
+    padding-bottom: 3px; /* Espaçamento da linha */
+}
+
+/* --- 5. Seção Hero --- */
+.hero {
+    background: var(--gradiente-hero-claro); /* Usando variável */
+    padding: 3rem 1rem;
+    max-width: 1100px;
+    margin: 1rem auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--sombra-hero);
+    position: relative; /* Para possíveis elementos de fundo */
+    overflow: hidden; /* Para garantir que o conteúdo não vaze */
+    align-items: center; /* Centraliza verticalmente o conteúdo */
+}
+
+.hero-text {
+    flex: 1 1 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 2; /* Para ficar acima de possíveis fundos */
+}
+
+.hero-text h1 {
+    font-family: var(--fonte-titulos); /* Nova fonte para títulos */
+    font-size: 3.2rem; /* Aumentado para mais impacto */
+    margin-bottom: 1rem;
+    color: var(--cor-campo-primaria);
+    line-height: 1.2;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.15); /* Sombra mais pronunciada no título */
+}
+
+.hero-text p {
+    font-size: 1.4rem; /* Aumentado para legibilidade */
+    color: var(--cor-texto-campo-escuro);
+    margin-bottom: 1.5rem; /* Mais espaço antes do CTA */
+}
+
+.hero-image {
+    flex: 1 1 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.hero-image img {
+    width: 100%;
+    max-width: 450px; /* Levemente maior */
+    border-radius: 15px; /* Mais arredondado */
+    box-shadow: var(--sombra-imagem-hero);
+    transition: transform 0.4s ease-out, box-shadow 0.4s ease-out; /* Efeito hover na imagem */
+}
+
+.hero-image img:hover,
+.hero-image img:focus { /* Adicionado efeito de foco */
+    transform: scale(1.05) rotate(1deg); /* Leve zoom e rotação ao passar o mouse */
+    box-shadow: 0 12px 25px rgba(44, 122, 44, 0.6);
+}
+
+/* --- 6. Botões de Chamada para Ação (CTA) --- */
+.btn-cta {
+    display: inline-flex; /* Para alinhar ícone e texto */
+    align-items: center;
+    gap: 0.8rem; /* Espaçamento entre texto e ícone */
+    background: var(--gradiente-btn-cta); /* Gradiente vibrante */
+    color: #fff;
+    padding: 1rem 2.5rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-radius: 30px;
+    text-decoration: none;
+    box-shadow: 0 8px 15px rgba(255, 165, 0, 0.4); /* Sombra colorida */
+    transition: all 0.3s ease;
+    border: none; /* Remover borda padrão */
+    cursor: pointer;
+}
+
+.btn-cta:hover,
+.btn-cta:focus {
+    transform: translateY(-5px) scale(1.02); /* Efeito de "levantar" */
+    box-shadow: 0 12px 20px rgba(255, 165, 0, 0.6); /* Sombra mais intensa */
+    background: linear-gradient(45deg, var(--cor-cidade-amarelo), var(--cor-cidade-laranja)); /* Inverter gradiente */
+    outline: none;
+}
+
+/* --- 7. Seções de Conteúdo Geral --- */
+.content-section {
+    max-width: 1100px;
+    margin: 3rem auto;
+    background: #fff;
+    padding: 2.5rem 3rem; /* Mais padding */
+    border-radius: 15px; /* Más arredondado */
+    box-shadow: var(--sombra-padrao);
+    transition: transform 0.5s ease-out, opacity 0.5s ease-out; /* Para data-reveal */
+    transform: translateY(20px); /* Estado inicial para data-reveal */
+    opacity: 0; /* Estado inicial para data-reveal */
+}
+
+.content-section h2 {
+    font-family: var(--fonte-titulos); /* Nova fonte para títulos */
+    font-size: 2.5rem; /* Aumentado */
+    margin-bottom: 1.5rem; /* Más espaço */
+    color: var(--cor-campo-primaria);
+    display: flex;
+    align-items: center;
+    gap: 0.8rem; /* Aumentado o espaço entre ícone e texto */
+    text-align: center; /* Centraliza em mobile */
+    justify-content: center; /* Centraliza em mobile */
+}
+
+.content-section h2 .fas {
+    color: var(--cor-cidade-amarelo); /* Ícones com cor de destaque */
+    transition: transform 0.3s ease;
+}
+
+.content-section h2:hover .fas,
+.content-section h2:focus-within .fas { /* Adicionado efeito de foco */
+    transform: rotate(5deg) scale(1.1); /* Animação sutil nos ícones dos títulos */
+}
+
+
+.content-section p,
+.content-section ul {
+    font-size: 1.15rem; /* Levemente maior para legibilidade */
+    color: var(--cor-texto-secundario);
+    margin-bottom: 1rem;
+    line-height: 1.7; /* Melhor espaçamento entre linhas */
+}
+
+.content-section ul {
+    list-style: none; /* Remove o disc padrão para customizar */
+    padding-left: 1rem;
+    color: var(--cor-texto-campo-escuro);
+}
+
+.content-section ul li {
+    margin-bottom: 0.7rem; /* Más espaçamento */
+    position: relative;
+    padding-left: 1.8rem; /* Espaço para o bullet customizado */
+}
+
+.content-section ul li::before {
+    content: '🌱'; /* Bullet customizado com emoji de broto */
+    position: absolute;
+    left: 0;
+    color: var(--cor-campo-primaria);
+    font-size: 1.1em; /* Levemente maior */
+    top: 0.1em;
+}
+
+/* --- 8. Grid de Cards (Seção Importância) --- */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Colunas responsivas */
+    gap: 25px; /* Espaçamento entre cards */
+    margin-top: 2rem;
+}
+
+.card {
+    background: var(--cor-campo-muito-claro);
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: var(--sombra-card);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    border: 2px solid transparent; /* Borda transparente para transição */
+    position: relative; /* Para borda animada */
+    overflow: hidden; /* Para garantir que a borda animada não vaze */
+}
+
+.card::before { /* Elemento para borda animada */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 12px;
+    padding: 2px; /* Largura da borda */
+    background: var(--gradiente-card-borda);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    z-index: -1;
+    opacity: 0; /* Começa invisível */
+    transition: opacity 0.3s ease;
+}
+
+.card:hover::before,
+.card:focus-within::before { /* Adicionado efeito de foco */
+    opacity: 1; /* Fica visível ao passar o mouse */
+}
+
+.card:hover,
+.card:focus-within { /* Adicionado efeito de foco */
+    transform: translateY(-8px) scale(1.02); /* Efeito de "levantar" e leve zoom */
+    box-shadow: var(--sombra-card-hover);
+    border-color: transparent; /* Remove a borda sólida se a animada estiver ativa */
+}
+
+.icon-card {
+    font-size: 3rem; /* Ícones maiores */
+    color: var(--cor-cidade-azul); /* Cor dos ícones */
+    margin-bottom: 0.8rem;
+    transition: transform 0.3s ease;
+}
+
+.card:hover .icon-card,
+.card:focus-within .icon-card { /* Adicionado efeito de foco */
+    transform: rotate(5deg) scale(1.1); /* Animação nos ícones dos cards */
+}
+
+.card h3 {
+    font-family: var(--fonte-titulos);
+    font-size: 1.4rem;
+    color: var(--cor-campo-secundaria);
+    margin-bottom: 0.5rem;
+}
+
+.card p {
+    font-size: 1rem;
+    color: var(--cor-texto-secundario);
+}
+
+
+/* --- 9. Carrossel --- */
+.carousel {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px; /* Más arredondado */
+    box-shadow: var(--sombra-carousel);
+    background: #e9f1e9; /* Fundo claro para o carrossel */
+    padding-bottom: 3rem; /* Más espaço para os dots */
+}
+
+.carousel-track-container {
+    overflow: hidden;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    will-change: transform;
+}
+
+.carousel-slide {
+    min-width: 100%;
+    padding: 1.5rem; /* Más padding */
+    text-align: center;
+    display: flex; /* Transforma o slide em um contêiner flexível */
+    flex-direction: column; /* Empilha os filhos verticalmente */
+    align-items: center; /* Centraliza os itens horizontalmente */
+    justify-content: center; /* Centraliza os itens verticalmente */
+}
+
+.carousel-slide img {
+    max-width: 100%;
+    height: auto; /* Permite que a altura se ajuste proporcionalmente */
+    max-height: 300px; /* Altura máxima para uniformidade, mas flexível */
+    object-fit: contain; /* Garante que a imagem inteira seja visível, redimensiona se necessário */
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(44, 122, 44, 0.4);
+    transition: transform 0.3s ease;
+    margin-bottom: 1rem; /* Espaço entre imagem e texto */
+}
+.carousel-slide img:hover,
+.carousel-slide img:focus { /* Adicionado efeito de foco */
+    transform: scale(1.02);
+}
+
+.carousel-slide p { /* Estilo para o parágrafo dentro do slide do carrossel */
+    font-size: 1.1rem;
+    color: var(--cor-texto-secundario);
+    line-height: 1.6;
+    margin-bottom: 0; /* Remove margem inferior padrão */
+    padding: 0 1rem; /* Adiciona preenchimento horizontal ao texto */
+}
+
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--cor-campo-primaria);
+    color: #fff;
+    border: none;
+    font-size: 1.8rem; /* Botões maiores */
+    padding: 0.8rem 1.2rem; /* Más padding */
+    cursor: pointer;
+    border-radius: 0 15px 15px 0; /* Más arredondado */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    z-index: 10;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.carousel-btn:hover,
+.carousel-btn:focus {
+    background: var(--cor-campo-secundaria);
+    transform: translateY(-50%) scale(1.08); /* Leve aumento ao passar o mouse */
+    box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+    outline: none;
+}
+
+.carousel-btn.prev {
+    left: 0;
+    border-radius: 15px 0 0 15px;
+}
+
+.carousel-btn.next {
+    right: 0;
+    border-radius: 0 15px 15px 0;
+}
+
+/* Indicadores de Carrossel (Dots) */
+.carousel-dots {
+    position: absolute;
+    bottom: 1.5rem; /* Más afastado da borda */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.7rem; /* Más espaçamento entre dots */
+}
+
+.carousel-dot {
+    width: 12px; /* Dots maiores */
+    height: 12px;
+    background-color: rgba(44, 122, 44, 0.4); /* Cor dos dots inativos */
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border: 2px solid transparent; /* Borda para o dot ativo */
+}
+
+.carousel-dot.active {
+    background-color: var(--cor-campo-primaria); /* Cor do dot ativo */
+    transform: scale(1.3); /* Más destaque */
+    border-color: var(--cor-cidade-amarelo); /* Borda amarela para o ativo */
+}
+
+.carousel-dot:hover,
+.carousel-dot:focus { /* Adicionado efeito de foco */
+    background-color: var(--cor-campo-secundaria);
+}
+
+/* --- 10. Seção Impacto e Futuro (Gráfico) --- */
+.impact-content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+.impact-content p {
+    flex: 1 1 40%;
+    min-width: 300px; /* Garante que o texto não fique muito estreito */
+}
+
+.interactive-placeholder {
+    flex: 1 1 50%;
+    min-width: 350px;
+    background-color: var(--cor-campo-muito-claro);
+    border: 2px dashed var(--cor-campo-primaria);
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: var(--sombra-card);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 400px; /* Altura fixa para o contêiner do gráfico */
+    max-height: 50vh; /* Limite máximo de altura para telas muito grandes */
+}
+
+.interactive-placeholder:hover,
+.interactive-placeholder:focus-within { /* Adicionado efeito de foco */
+    transform: translateY(-5px);
+    box-shadow: var(--sombra-card-hover);
+}
+
+.interactive-placeholder canvas { /* Estilo para o canvas do gráfico */
+    max-width: 100%;
+    height: 100%; /* Fazer o canvas preencher a altura do pai */
+    margin-bottom: 1rem;
+}
+
+.placeholder-text {
+    font-style: italic;
+    color: var(--cor-texto-secundario);
+    font-size: 1rem;
+}
+
+/* --- 11. Grid de Desafios --- */
+.challenges-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 2rem;
+}
+
+.challenge-item {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: var(--sombra-card);
+    border-left: 5px solid var(--cor-cidade-laranja); /* Borda lateral de destaque */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.challenge-item:hover,
+.challenge-item:focus-within { /* Adicionado efeito de foco */
+    transform: translateY(-8px);
+    box-shadow: var(--sombra-card-hover);
+    border-color: var(--cor-cidade-amarelo); /* Muda a cor da borda ao hover */
+}
+
+.challenge-item h3 {
+    font-family: var(--fonte-principal); /* Manter Inter para subtítulos de item */
+    font-size: 1.3rem;
+    color: var(--cor-cidade-laranja);
+    margin-bottom: 0.6rem;
+}
+
+.challenge-item p {
+    font-size: 1rem;
+    color: var(--cor-texto-secundario);
+}
+
+.solution-text {
+    margin-top: 2rem;
+    font-weight: 600;
+    color: var(--cor-campo-secundaria);
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+/* --- 12. Galeria de Imagens --- */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 2rem;
+}
+
+.gallery-item {
+    background: var(--cor-campo-muito-claro);
+    border-radius: 12px;
+    overflow: hidden; /* Garante que a imagem não vaze */
+    box-shadow: var(--sombra-galeria);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.gallery-item:hover,
+.gallery-item:focus-within { /* Adicionado efeito de foco */
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 220px; /* Altura fixa para uniformidade */
+    object-fit: cover; /* Garante que a imagem preencha o espaço */
+    display: block; /* Remove espaçamento extra abaixo da imagem */
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover img,
+.gallery-item:focus-within img { /* Adicionado efeito de foco */
+    transform: scale(1.05); /* Leve zoom na imagem ao passar o mouse */
+}
+
+.gallery-item p {
+    padding: 1rem;
+    font-size: 1rem;
+    color: var(--cor-texto-secundario);
+    margin-bottom: 0; /* Remove margem inferior padrão do p */
+}
+
+/* --- 13. Estilos de Formulários (Geral, Quiz e Contato) --- */
+/* --- Estilos de Formulários --- */
+form {
+    max-width: 700px; /* Más largura para o quiz */
+    margin: 0 auto;
+}
+
+fieldset {
+    border: 2px solid var(--cor-campo-primaria);
+    border-radius: 10px; /* Más arredondado */
+    padding: 1.5rem 2rem; /* Más padding */
+    margin-bottom: 1.8rem; /* Más espaçamento */
+    background: #f0f8f0;
+    transition: box-shadow 0.3s ease;
+}
+
+fieldset:hover {
+    box-shadow: 0 0 15px rgba(44, 122, 44, 0.2); /* Sombra ao passar o mouse */
+}
+
+legend {
+    font-weight: 700;
+    font-size: 1.25rem; /* Maior */
+    color: var(--cor-campo-secundaria);
+    margin-bottom: 1rem; /* Más espaçamento */
+}
+
+label {
+    cursor: pointer;
+    user-select: none;
+    display: block;
+    padding: 0.6rem 0; /* Más padding */
+    font-size: 1.1rem; /* Maior */
+    color: var(--cor-texto-campo-escuro);
+    transition: color 0.3s ease;
+}
+
+label:hover,
+label:focus-within {
+    color: var(--cor-campo-primaria); /* Cor más escura ao passar o mouse */
+}
+
+input[type="radio"] {
+    margin-right: 0.8rem; /* Más espaçamento */
+    accent-color: var(--cor-campo-primaria); /* Cor do radio button */
+    transform: scale(1.2); /* Radio button maior */
+    vertical-align: middle; /* Alinha com o texto */
+}
+
+/* Adicione ou modifique se já existir */
+button#next-question-btn {
+    display: inline-block;
+    background: var(--cor-cidade-azul); /* Ou outro gradiente/cor que combine com seu tema */
+    color: #fff;
+    border: none;
+    padding: 0.9rem 3rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1.5rem;
+    box-shadow: 0 6px 12px rgba(70, 130, 180, 0.3); /* Sombra azul para contraste */
+}
+
+button#submit-quiz-btn {
+    display: inline-block;
+    background: var(--cor-cidade-azul); /* Ou outro gradiente/cor que combine com seu tema */
+    color: #fff;
+    border: none;
+    padding: 0.9rem 3rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1.5rem;
+    box-shadow: 0 6px 12px rgba(70, 130, 180, 0.3); /* Sombra azul para contraste */
+}
+
+/* Feedback do Quiz */
+.quiz-result {
+    margin-top: 1.5rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--cor-campo-primaria);
+    background: #d1e7d1;
+    padding: 1.2rem 1.8rem;
+    border-radius: 10px;
+    text-align: center;
+    border: 1px solid var(--cor-campo-claro);
+    box-shadow: var(--sombra-card);
+}
+
+/* Estilos para o Quiz (Validação) */
+fieldset.correct {
+    border-color: green;
+    background-color: #e6ffe6;
+}
+
+fieldset.incorrect {
+    border-color: red;
+    background-color: #ffe6e6;
+}
+
+.quiz-result.quiz-result-success {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}
+
+.quiz-result.quiz-result-fail {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+}
+
+/* Botão de Reiniciar Quiz */
+#btn-enviar-repostas {
+background: var(--cor-cidade-azul);
+margin-top: 1rem;
+box-shadow: 0 4px 8px rgba(70, 130, 180, 0.3);
+transition: all 0.3s ease; /* Transição para todas as propriedades */
+}
+
+#btn-reiniciar-quiz {
+    background: var(--cor-cidade-azul);
+    margin-top: 1rem;
+    box-shadow: 0 4px 8px rgba(70, 130, 180, 0.3);
+    transition: all 0.3s ease; /* Transição para todas as propriedades */
+}
+
+#btn-reiniciar-quiz:hover,
+#btn-reiniciar-quiz:focus {
+    background: #3a72a0;
+    box-shadow: 0 6px 12px rgba(70, 130, 180, 0.5);
+}
+
+/* --- Seção Sobre o Projeto (Team) --- */
+.team-members-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-top: 2rem;
+}
+
+.team-member-card {
+    background: var(--cor-campo-muito-claro);
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: var(--sombra-card);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.team-member-card:hover,
+.team-member-card:focus-within { /* Adicionado efeito de foco */
+    transform: translateY(-8px);
+    box-shadow: var(--sombra-card-hover);
+}
+
+.team-member-card img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+    border: 4px solid var(--cor-cidade-azul);
+    box-shadow: 0 2px 8px rgba(70, 130, 180, 0.3);
+}
+
+.team-member-card h4 {
+    font-family: var(--fonte-titulos);
+    font-size: 1.5rem;
+    color: var(--cor-campo-secundaria);
+    margin-bottom: 0.4rem;
+}
+
+.team-member-card p {
+    font-size: 1rem;
+    color: var(--cor-texto-secundario);
+    margin-bottom: 0.5rem;
+}
+
+.role-description {
+    font-size: 0.95rem;
+    font-style: italic;
+    color: #555;
+}
+
+/* Estilos do Formulário de Contato */
+#contact-form {
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: #f0f8f0;
+    border-radius: 15px;
+    box-shadow: var(--sombra-card);
+}
+
+#contact-form label {
+    font-weight: 600;
+    color: var(--cor-campo-primaria);
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+#contact-form input[type="text"],
+#contact-form input[type="email"],
+#contact-form textarea {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1.5rem;
+    border: 2px solid var(--cor-campo-primaria);
+    border-radius: 8px; /* Borda mais suave */
+    font-size: 1.1rem;
+    font-family: inherit;
+    resize: vertical;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+/* Feedback visual para campos inválidos */
+#contact-form input.is-invalid,
+#contact-form textarea.is-invalid {
+    border-color: #dc3545; /* Borda vermelha para campos inválidos */
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.3);
+}
+
+#contact-form input[type="text"]:focus,
+#contact-form input[type="email"]:focus,
+#contact-form textarea:focus {
+    border-color: var(--cor-cidade-azul);
+    box-shadow: 0 0 0 4px rgba(70, 130, 180, 0.3);
+    transform: scale(1.01); /* Leve zoom ao focar */
+    outline: none;
+}
+
+/* Estilos de Botão de Formulário */
+#contact-form button {
+    background: var(--cor-cidade-azul);
+    color: #fff;
+    border: none;
+    padding: 0.9rem 3rem;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1.2rem;
+    transition: all 0.3s ease; /* Transição para todas as propriedades */
+    box-shadow: 0 6px 12px rgba(70, 130, 180, 0.3);
+}
+
+#contact-form button:hover,
+#contact-form button:focus {
+    background: #3a72a0;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(70, 130, 180, 0.5);
+    outline: none;
+}
+
+/* Feedback do Formulário de Contato */
+#contact-feedback {
+    margin-top: 1.5rem;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-align: center;
+    font-size: 1.1rem;
+    border: 1px solid;
+}
+
+#contact-feedback[style*="green"] { /* Estilo para sucesso */
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+#contact-feedback[style*="red"] { /* Estilo para erro */
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+
+/* --- 14. Rodapé --- */
+footer {
+    background: var(--cor-campo-secundaria);
+    color: var(--cor-campo-muito-claro);
+    text-align: center;
+    padding: 2rem 1rem;
+    margin-top: auto;
+    box-shadow: 0 -4px 10px rgba(0,0,0,0.3);
+}
+
+.footer-social {
+    margin-bottom: 1rem;
+}
+
+.footer-social a {
+    color: var(--cor-campo-claro);
+    margin: 0 0.9rem;
+    font-size: 1.8rem;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.footer-social a:hover,
+.footer-social a:focus {
+    color: var(--cor-cidade-amarelo);
+    transform: translateY(-4px) scale(1.15);
+    outline: none;
+}
+
+/* --- 15. Botões Fixos (Voltar ao Topo e Acessibilidade) --- */
+/* Botão Voltar ao Topo */
+.btn-topo {
+    position: fixed;
+    bottom: 24px !important;
+    right: 24px !important;
+    width: 50px !important;
+    height: 50px !important;
+    font-size: 28px !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--cor-campo-primaria);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: var(--sombra-botoes-fixos);
+    transition: background-color 0.3s ease, transform 0.2s ease, opacity 0.3s ease;
+    display: none;
+    z-index: 1500;
+}
+
+.btn-topo:hover,
+.btn-topo:focus {
+    background: var(--cor-campo-secundaria);
+    transform: translateY(-3px) scale(1.05);
+    outline: none;
+}
+
+/* Mostrar botão voltar ao topo ao rolar */
+body.scrolled .btn-topo {
+    display: flex;
+    opacity: 1;
+}
+
+/* Acessibilidade - Botão Fixo (Engrenagem) */
+#acessibilidade-btn {
+    position: fixed;
+    bottom: 24px !important;
+    left: 24px !important;
+    background: var(--cor-campo-primaria);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 50px !important;
+    height: 50px !important;
+    font-size: 28px !important;
+    padding: 0 !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: var(--sombra-botoes-fixos);
+    z-index: 2000;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#acessibilidade-btn:hover,
+#acessibilidade-btn:focus {
+    background: var(--cor-campo-secundaria);
+    transform: rotate(15deg) scale(1.05);
+    outline: none;
+}
+
+/* Menu Acessibilidade */
+#acessibilidade-menu {
+    position: fixed;
+    bottom: 83px !important;
+    left: 24px !important;
+    background: #f0f8f0;
+    border: 2px solid var(--cor-campo-primaria);
+    border-radius: 10px;
+    padding: 10px !important;
+    flex-wrap: wrap;
+    gap: 8px !important;
+    box-shadow: var(--sombra-menu-acessibilidade);
+    z-index: 1999;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+}
+
+/* Nova classe para tornar o menu visível */
+#acessibilidade-menu.acessibilidade-menu-visible {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+
+#acessibilidade-menu button {
+    background: var(--cor-campo-primaria);
+    color: #fff;
+    border: none;
+    width: 40px !important;
+    height: 40px !important;
+    font-size: 20px !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#acessibilidade-menu button:hover,
+#acessibilidade-menu button:focus {
+    background: var(--cor-campo-secundaria);
+    transform: scale(1.05);
+    outline: none;
+}
+
+/* Estilo para o botão de parar leitura quando desativado */
+#acessibilidade-menu button:disabled {
+    opacity: 0.5 !important;
+    cursor: not-allowed !important;
+    background-color: #a0a0a0 !important;
+    color: #f0f0f0 !important;
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+/* --- 17. Botão Copiar E-mail --- */
+.btn-copy-email {
+    background-color: var(--cor-campo-secundaria); /* Verde mais escuro */
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 600;
+    margin-left: 10px; /* Espaçamento do link */
+    transition: all 0.3s ease; /* Transição para todas as propriedades */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    display: inline-flex; /* Para alinhar ícone e texto */
+    align-items: center;
+    gap: 5px;
+}
+
+.btn-copy-email:hover,
+.btn-copy-email:focus {
+    background-color: var(--cor-campo-primaria); /* Verde mais claro ao hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    outline: none;
+}
+
+/* --- 18. Mensagens de Erro Inline --- */
+.error-message {
+    display: block; /* Para que apareça em uma nova linha */
+    margin-top: -10px; /* Ajusta o espaçamento */
+    margin-bottom: 10px; /* Espaçamento para o próximo campo */
+    color: #dc3545; /* Cor do texto de erro */
+    font-size: 0.9em; /* Tamanho da fonte */
+    font-weight: 600; /* Negrito para destaque */
+}
+
+/* --- 19. Spinner de Carregamento --- */
+#loading-spinner {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 1.1rem;
+    color: var(--cor-campo-primaria); /* Cor do texto e ícone */
+    display: flex; /* Para centralizar o ícone e o texto */
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Espaçamento entre o ícone e o texto */
+    font-weight: 600;
+}
+
+#loading-spinner .fas {
+    font-size: 1.5rem; /* Tamanho do ícone do spinner */
+}
+
+/* --- 20. Modal Customizado --- */
+#custom-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 25px 30px; /* Mais padding */
+    border-radius: 12px; /* Mais arredondado */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4); /* Sombra mais pronunciada */
+    z-index: 9999;
+    max-width: 90%; /* Aumenta a largura em mobile */
+    width: 400px; /* Largura fixa para desktop */
+    text-align: center;
+    font-family: var(--fonte-principal);
+    border: 2px solid;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    display: flex; /* Para alinhar conteúdo verticalmente */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#custom-modal #modal-message {
+    font-size: 1.2rem; /* Mensagem maior */
+    margin-bottom: 20px; /* Más espaço */
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+#custom-modal .modal-icon { /* Novo estilo para ícone no modal */
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+#custom-modal button {
+    background-color: var(--cor-campo-primaria);
+    color: white;
+    border: none;
+    padding: 10px 25px; /* Más padding */
+    border-radius: 25px; /* Más arredondado */
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 700;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+#custom-modal button:hover,
+#custom-modal button:focus {
+    background-color: var(--cor-campo-secundaria);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    outline: none;
+}
+
+/* Estilos Específicos para Tipo de Modal */
+#custom-modal[data-type="success"] {
+    border-color: var(--cor-campo-primaria);
+}
+#custom-modal[data-type="success"] #modal-message {
+    color: var(--cor-campo-secundaria);
+}
+#custom-modal[data-type="success"] .modal-icon {
+    color: var(--cor-campo-primaria);
+}
+
+#custom-modal[data-type="error"] {
+    border-color: #dc3545; /* Vermelho */
+}
+#custom-modal[data-type="error"] #modal-message {
+    color: #dc3545;
+}
+#custom-modal[data-type="error"] .modal-icon {
+    color: #dc3545;
+}
+
+#custom-modal[data-type="info"] {
+    border-color: var(--cor-cidade-azul);
+}
+#custom-modal[data-type="info"] #modal-message {
+    color: var(--cor-cidade-azul);
+}
+#custom-modal[data-type="info"] .modal-icon {
+    color: var(--cor-cidade-azul);
+}
+
+/* --- 21. Temas (Escuro e Alto Contraste) --- */
+/* Estilos de Tema Escuro */
+body.dark-theme {
+    /* Cores para o tema escuro */
+    --cor-fundo-claro: #121212;
+    --cor-texto-principal: #e0e0e0;
+    --cor-texto-secundario: #ddd;
+    --cor-campo-primaria: #0b3d0b; /* Verde escuro para tema escuro */
+    --cor-campo-secundaria: #063006; /* Verde mais escuro para tema escuro */
+    --cor-campo-claro: #a7d5a7;
+    --cor-campo-muito-claro: #d1f7d1;
+
+    --gradiente-hero-claro: linear-gradient(to right, #1a3a1a, #2c5c2c);
+    --gradiente-fundo-claro: linear-gradient(180deg, #121212 0%, #2a3a4a 100%); /* Fundo escuro para céu noturno */
+
+    --sombra-header: 0 2px 8px rgba(0, 0, 0, 0.9);
+    --sombra-hero: 0 8px 20px rgba(0, 0, 0, 0.7);
+    --sombra-imagem-hero: 0 8px 20px rgba(0, 0, 0, 0.8);
+    --sombra-carousel: 0 6px 15px rgba(0, 0, 0, 0.8);
+    --sombra-botoes-fixos: 0 6px 12px rgba(0, 64, 0, 0.7);
+    --sombra-menu-acessibilidade: 0 6px 15px rgba(0, 0, 0, 0.5);
+    --sombra-card: 0 5px 15px rgba(0,0,0,0.4);
+    --sombra-card-hover: 0 10px 25px rgba(0,0,0,0.6);
+    --sombra-galeria: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+body.dark-theme header {
+    background-color: var(--cor-campo-primaria);
+}
+
+body.dark-theme .nav-links a {
+    color: var(--cor-campo-claro);
+}
+
+body.dark-theme .nav-links a:hover,
+body.dark-theme .nav-links a:focus {
+    color: var(--cor-campo-muito-claro);
+}
+
+body.dark-theme .nav-links a.active {
+    color: var(--cor-cidade-amarelo);
+    border-color: var(--cor-cidade-amarelo);
+}
+
+body.dark-theme .hero {
+    background: var(--gradiente-hero-claro);
+}
+
+body.dark-theme .hero-text h1,
+body.dark-theme .hero-text p {
+    color: var(--cor-campo-muito-claro);
+}
+
+body.dark-theme .btn-cta {
+    box-shadow: 0 8px 15px rgba(255, 165, 0, 0.2);
+}
+body.dark-theme .btn-cta:hover,
+body.dark-theme .btn-cta:focus {
+    box-shadow: 0 12px 20px rgba(255, 165, 0, 0.4);
+}
+
+body.dark-theme .carousel {
+    background: #223322;
+}
+
+body.dark-theme .carousel-btn {
+    background: var(--cor-campo-primaria);
+}
+
+body.dark-theme .carousel-btn:hover,
+body.dark-theme .carousel-btn:focus {
+    background: var(--cor-campo-secundaria);
+}
+
+body.dark-theme .carousel-dot {
+    background-color: rgba(167, 213, 167, 0.5); /* Dots inativos no tema escuro */
+}
+
+body.dark-theme .carousel-dot.active {
+    background-color: var(--cor-campo-claro); /* Dot ativo no tema escuro */
+}
+
+body.dark-theme .content-section {
+    background: #1e1e1e;
+    color: var(--cor-texto-principal);
+}
+
+body.dark-theme .content-section h2 {
+    color: var(--cor-campo-claro);
+}
+
+body.dark-theme .content-section h2 .fas {
+    color: var(--cor-cidade-amarelo); /* Ícones com cor de destaque no tema escuro */
+}
+
+body.dark-theme .content-section ul li::before {
+    color: var(--cor-campo-claro); /* Bullet customizado no tema escuro */
+}
+
+body.dark-theme .cards-grid .card {
+    background: #2a2a2a;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+}
+body.dark-theme .cards-grid .card:hover,
+body.dark-theme .cards-grid .card:focus-within {
+    box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+}
+body.dark-theme .cards-grid .card h3 {
+    color: var(--cor-campo-claro);
+}
+body.dark-theme .cards-grid .card p {
+    color: var(--cor-texto-principal);
+}
+
+body.dark-theme .interactive-placeholder {
+    background-color: #2a2a2a;
+    border: 2px dashed var(--cor-campo-claro);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+}
+body.dark-theme .interactive-placeholder:hover,
+body.dark-theme .interactive-placeholder:focus-within {
+    box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+}
+body.dark-theme .placeholder-text {
+    color: var(--cor-texto-principal);
+}
+
+body.dark-theme .challenge-item {
+    background: #2a2a2a;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+    border-left-color: var(--cor-cidade-laranja);
+}
+body.dark-theme .challenge-item:hover,
+body.dark-theme .challenge-item:focus-within {
+    box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+    border-color: var(--cor-cidade-amarelo);
+}
+body.dark-theme .challenge-item h3 {
+    color: var(--cor-cidade-laranja);
+}
+body.dark-theme .challenge-item p {
+    color: var(--cor-texto-principal);
+}
+body.dark-theme .solution-text {
+    color: var(--cor-campo-claro);
+}
+
+body.dark-theme .gallery-item {
+    background: #2a2a2a;
+    box-shadow: var(--sombra-galeria);
+}
+body.dark-theme .gallery-item:hover,
+body.dark-theme .gallery-item:focus-within {
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+body.dark-theme .gallery-item p {
+    color: var(--cor-texto-principal);
+}
+
+body.dark-theme form,
+body.dark-theme fieldset {
+    background: #222;
+    border-color: var(--cor-campo-primaria);
+    color: var(--cor-texto-principal);
+}
+
+body.dark-theme legend {
+    color: var(--cor-campo-claro);
+}
+
+body.dark-theme label {
+    color: var(--cor-campo-muito-claro);
+}
+
+body.dark-theme input[type="radio"] {
+    accent-color: var(--cor-campo-claro);
+}
+
+body.dark-theme button[type="submit"] {
+    background: var(--cor-campo-primaria);
+    color: var(--cor-campo-muito-claro);
+}
+
+body.dark-theme button[type="submit"]:hover,
+body.dark-theme button[type="submit"]:focus {
+    background: var(--cor-campo-secundaria);
+}
+
+body.dark-theme .quiz-result {
+    background: #1a3a1a;
+    color: var(--cor-campo-claro);
+    border-color: var(--cor-campo-secundaria);
+}
+
+body.dark-theme #btn-reiniciar-quiz {
+    background: var(--cor-cidade-azul);
+}
+body.dark-theme #btn-reiniciar-quiz:hover,
+body.dark-theme #btn-reiniciar-quiz:focus {
+    background: #3a72a0;
+}
+
+body.dark-theme .team-member-card {
+    background: #2a2a2a;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+}
+body.dark-theme .team-member-card:hover,
+body.dark-theme .team-member-card:focus-within {
+    box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+}
+body.dark-theme .team-member-card h4 {
+    color: var(--cor-campo-claro);
+}
+body.dark-theme .team-member-card p {
+    color: var(--cor-texto-principal);
+}
+body.dark-theme .team-member-card img {
+    border-color: var(--cor-cidade-azul);
+    box-shadow: 0 2px 8px rgba(70, 130, 180, 0.6);
+}
+
+body.dark-theme #contact-form {
+    background: #222;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+}
+body.dark-theme #contact-form label {
+    color: var(--cor-campo-claro);
+}
+body.dark-theme #contact-form input[type="text"],
+body.dark-theme #contact-form input[type="email"],
+body.dark-theme #contact-form textarea {
+    background: #333;
+    border-color: var(--cor-campo-primaria);
+    color: var(--cor-texto-principal);
+}
+/* Estilos de campo inválido no tema escuro */
+body.dark-theme #contact-form input.is-invalid,
+body.dark-theme #contact-form textarea.is-invalid {
+    border-color: #dc3545 !important; /* Borda vermelha para campos inválidos no tema escuro */
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.3) !important;
+}
+
+body.dark-theme #contact-form input[type="text"]:focus,
+body.dark-theme #contact-form input[type="email"]:focus,
+body.dark-theme #contact-form textarea:focus {
+    border-color: var(--cor-cidade-azul);
+    box-shadow: 0 0 0 4px rgba(70, 130, 180, 0.5);
+}
+body.dark-theme #contact-form button {
+    background: var(--cor-cidade-azul);
+    color: var(--cor-campo-muito-claro);
+}
+body.dark-theme #contact-form button:hover,
+body.dark-theme #contact-form button:focus {
+    background: #3a72a0;
+}
+body.dark-theme #contact-feedback {
+    background-color: #1a3a1a;
+    border-color: #0b3d0b;
+    color: var(--cor-campo-claro);
+}
+body.dark-theme #contact-feedback[style*="red"] {
+    background-color: #3a1a1a;
+    border-color: #721c24;
+    color: #f8d7da;
+}
+
+body.dark-theme #loading-spinner {
+    color: var(--cor-campo-claro);
+}
+
+body.dark-theme #custom-modal {
+    background-color: #222;
+    border-color: var(--cor-campo-primaria);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+}
+body.dark-theme #custom-modal #modal-message {
+    color: var(--cor-texto-principal);
+}
+body.dark-theme #custom-modal .modal-icon {
+    color: var(--cor-campo-claro);
+}
+body.dark-theme #custom-modal button {
+    background-color: var(--cor-campo-primaria);
+    color: var(--cor-campo-muito-claro);
+}
+body.dark-theme #custom-modal button:hover,
+body.dark-theme #custom-modal button:focus {
+    background-color: var(--cor-campo-secundaria);
+}
+
+body.dark-theme footer {
+    background: var(--cor-campo-primaria);
+    color: var(--cor-campo-claro);
+}
+
+body.dark-theme .footer-social a {
+    color: var(--cor-campo-claro);
+}
+
+body.dark-theme .footer-social a:hover,
+body.dark-theme .footer-social a:focus {
+    color: var(--cor-cidade-amarelo);
+}
+
+body.dark-theme .btn-topo,
+body.dark-theme #acessibilidade-btn {
+    background: var(--cor-campo-primaria);
+    color: var(--cor-campo-claro);
+}
+
+body.dark-theme .btn-topo:hover,
+body.dark-theme .btn-topo:focus,
+body.dark-theme #acessibilidade-btn:hover,
+body.dark-theme #acessibilidade-btn:focus {
+    background: var(--cor-campo-secundaria);
+}
+
+/* Estilos de Tema de Alto Contraste (Ajustes Finais) */
+/* Aplicar !important para garantir a sobrescrita de estilos */
+body.high-contrast {
+    background-color: #000 !important;
+    color: #FFF !important;
+}
+
+/* Garante que o tamanho da fonte base do HTML não seja alterado no modo de alto contraste */
+body.high-contrast html {
+    font-size: 16px !important; /* Ou o tamanho base que você desejar para alto contraste */
+}
+
+body.high-contrast header,
+body.high-contrast footer,
+body.high-contrast .content-section,
+body.high-contrast .hero,
+body.high-contrast .carousel,
+body.high-contrast form,
+body.high-contrast fieldset,
+body.high-contrast #acessibilidade-menu,
+body.high-contrast .card,
+body.high-contrast .interactive-placeholder,
+body.high-contrast .challenge-item,
+body.high-contrast .team-member-card,
+body.high-contrast #contact-form,
+body.high-contrast .gallery-item,
+body.high-contrast #custom-modal {
+    background-color: #000 !important;
+    color: #FFF !important;
+    border-color: #FFF !important;
+    box-shadow: none !important;
+}
+
+body.high-contrast .nav-links a,
+body.high-contrast .logo,
+body.high-contrast h1,
+body.high-contrast h2,
+body.high-contrast h3,
+body.high-contrast h4,
+body.high-contrast p,
+body.high-contrast li,
+body.high-contrast legend,
+body.high-contrast label,
+body.high-contrast .quiz-result,
+body.high-contrast .footer-social a,
+body.high-contrast .fas,
+body.high-contrast .fab,
+body.high-contrast .icon-card,
+body.high-contrast .placeholder-text,
+body.high-contrast .solution-text,
+body.high-contrast #custom-modal #modal-message,
+body.high-contrast #custom-modal .modal-icon,
+body.high-contrast .role-description {
+    color: #FFF !important;
+}
+
+body.high-contrast button,
+body.high-contrast input[type="submit"],
+body.high-contrast .carousel-btn,
+body.high-contrast .carousel-dot,
+body.high-contrast #acessibilidade-menu button,
+body.high-contrast #acessibilidade-btn,
+body.high-contrast .btn-cta,
+body.high-contrast .btn-read-more,
+body.high-contrast .btn-copy-email,
+body.high-contrast #custom-modal button {
+    background-color: #FFF !important;
+    color: #000 !important;
+    border: 1px solid #000 !important;
+    box-shadow: none !important;
+}
+
+body.high-contrast input[type="text"],
+body.high-contrast input[type="email"],
+body.high-contrast textarea {
+    background-color: #000 !important;
+    color: #FFF !important;
+    border: 2px solid #FFF !important;
+}
+/* Estilos de campo inválido no alto contraste */
+body.high-contrast #contact-form input.is-invalid,
+body.high-contrast #contact-form textarea.is-invalid {
+    border-color: yellow !important; /* Borda amarela para campos inválidos no alto contraste */
+    box-shadow: 0 0 0 3px rgba(255, 255, 0, 0.5) !important;
+}
+
+/* Garante que o outline de foco seja branco no alto contraste */
+body.high-contrast *:focus {
+    outline: 3px solid #FFF !important;
+    outline-offset: 2px !important;
+}
+
+/* Alto contraste para mensagens de erro inline */
+body.high-contrast .error-message {
+    color: yellow !important;
+}
+
+/* Alto contraste para o spinner */
+body.high-contrast #loading-spinner {
+    color: #FFF !important;
+}
+
+/* --- 22. Estilos de Responsividade (Media Queries) --- */
+@media (max-width: 768px) {
+    .navbar {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: space-between; /* Garante que o logo e o toggle permaneçam separados */
+    }
+
+    .logo {
+        flex-basis: auto; /* Permite que o logo ocupe a largura natural */
+        font-size: 1.3rem; /* Fonte ligeiramente menor para o logo em mobile */
+        white-space: normal; /* Permite que o texto do logo quebre em telas menores, se necessário */
+        text-align: left;
+    }
+    .logo span { /* Alvo do texto dentro do logo */
+        display: block; /* Força "2025" para uma nova linha, se necessário */
+    }
+
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        width: 100%;
+        flex-direction: column;
+        display: none;
+        background: var(--cor-campo-primaria);
+        border-radius: 10px;
+        padding: 0.5rem 1rem;
+        order: 1; /* Posiciona os nav-links abaixo do logo e toggle */
+    }
+
+    .nav-links.show {
+        display: flex;
+    }
+
+    .nav-links a {
+        padding: 0.6rem 0;
+        font-size: 1.1rem;
+    }
+
+    .hero {
+        flex-direction: column;
+        padding: 2rem 1rem;
+    }
+
+    .hero-text,
+    .hero-image {
+        flex: 1 1 100%;
+    }
+
+    .hero-text h1 {
+        font-size: 2.2rem; /* Ajuste para telas menores */
+    }
+    .hero-text p {
+        font-size: 1.1rem;
+    }
+    .btn-cta {
+        font-size: 1rem;
+        padding: 0.8rem 2rem;
+    }
+
+    .content-section {
+        padding: 1.5rem 1.5rem; /* Ajuste para telas menores */
+    }
+
+    .content-section h2 {
+        font-size: 1.8rem; /* Ajuste para telas menores */
+        text-align: left; /* Alinha à esquerda em mobile */
+        justify-content: flex-start; /* Alinha à esquerda em mobile */
+    }
+    .content-section p,
+    .content-section ul {
+        font-size: 1rem;
+    }
+
+    .carousel-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 1.2rem;
+    }
+
+    .carousel-slide img {
+        height: auto; /* Garante que a altura se ajuste */
+        max-height: 200px; /* Ajuste para telas menores */
+    }
+
+    .impact-content {
+        flex-direction: column;
+    }
+    .impact-content p,
+    .interactive-placeholder {
+        min-width: unset; /* Remove min-width em mobile */
+        width: 100%;
+        height: 300px; /* Altura ajustada para mobile */
+    }
+
+    .gallery-item img {
+        height: 180px; /* Altura menor para galeria em mobile */
+    }
+
+    .team-member-card img {
+        width: 100px;
+        height: 100px;
+    }
+    .team-member-card h4 {
+        font-size: 1.3rem;
+    }
+    .team-member-card p {
+        font-size: 0.9rem;
+    }
+    .role-description {
+        font-size: 0.85rem;
+    }
+
+    #contact-form {
+        padding: 1.5rem;
+    }
+    #contact-form label {
+        font-size: 1rem;
+    }
+    #contact-form input, #contact-form textarea {
+        font-size: 1rem;
+    }
+    #contact-form button {
+        font-size: 1rem;
+        padding: 0.7rem 2rem;
+    }
+
+    #custom-modal {
+        width: 95%; /* Ocupa mais espaço em telas pequenas */
+        padding: 20px;
+    }
+
+    footer {
+        padding: 1rem;
+    }
+    .footer-social a {
+        font-size: 1.4rem;
+    }
+}
+
+/* --- 23. Animações de Revelação --- */
+/* Comentário: As animações devem ser usadas com moderação para não distrair o usuário. */
+[data-reveal] {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition-delay: 0s !important; /* DELAY REMOVIDO */
+}
+
+[data-reveal].revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Comentário: As sombras são importantes para profundidade, mas o excesso pode afetar a legibilidade. Teste diferentes intensidades. */
