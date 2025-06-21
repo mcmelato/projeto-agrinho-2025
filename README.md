@@ -1,4 +1,6 @@
 # Agrinho_2025
+Este projeto foi desenvolvido e publicado como parte da minha participação no Programa Agrinho 2025, representando o Colégio Estadual Humberto de Alencar Castelo Branco, localizado no município de Jesuítas – PR.
+
 # 🎉 Festejando a Conexão entre Campo e Cidade
 
 Projeto desenvolvido como parte da participação no **Programa Agrinho 2025**, com o objetivo de valorizar e divulgar a importância da relação entre o campo e a cidade, por meio de um site interativo, educativo e cultural.
